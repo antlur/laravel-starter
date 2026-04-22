@@ -32,3 +32,19 @@ _ide_helper.php
 resources/js/actions
 resources/js/routes
 resources/js/wayfinder
+
+# AI (Boost generated files)
+.claude/
+.codex/
+.gemini/
+.junie/
+.opencode/
+CLAUDE.md
+AGENTS.md
+GEMINI.md
+opencode.json
+.mcp.json
+boost.json
+.browser-data/
+.agents/
+.github/skills/

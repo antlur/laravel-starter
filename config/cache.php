@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Support\Str;
 
 return [
@@ -103,6 +105,20 @@ return [
     |
     */
 
-    'prefix' => env('CACHE_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_cache_'),
+    'prefix' => env('CACHE_PREFIX', Str::slug(env('APP_NAME', 'laravel')).'-cache-'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Cache Serializable Classes
+    |--------------------------------------------------------------------------
+    |
+    | This option controls which classes may be unserialized from the cache.
+    | Setting this to false prevents PHP deserialization gadget chain attacks
+    | if your application's APP_KEY is leaked. If you intentionally store PHP
+    | objects in cache, you should explicitly list the allowed classes here.
+    |
+    */
+
+    'serializable_classes' => false,
 
 ];

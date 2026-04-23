@@ -10,19 +10,18 @@ createServer((page) =>
     createInertiaApp({
         page,
         render: ReactDOMServer.renderToString,
-        title: (title) => title ? `${title} - ${appName}` : appName,
-        resolve: (name) => resolvePageComponent(`./pages/${name}.tsx`, import.meta.glob('./pages/**/*.tsx')),
+        title: (title) => (title ? `${title} - ${appName}` : appName),
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        resolve: (name) => resolvePageComponent(`./pages/${name}.tsx`, import.meta.glob('./pages/**/*.tsx')) as any,
         setup: ({ App, props }) => {
-            /* eslint-disable */
-            // @ts-expect-error
-            global.route<RouteName> = (name, params, absolute) =>
-                route(name, params as any, absolute, {
-                    // @ts-expect-error
+            // @ts-expect-error Ziggy types on page.props
+            (global as unknown as { route: typeof route }).route = (name: RouteName, params: Parameters<typeof route>[1], absolute: boolean) =>
+                route(name, params, absolute, {
+                    // @ts-expect-error Ziggy types on page.props
                     ...page.props.ziggy,
-                    // @ts-expect-error
+                    // @ts-expect-error Ziggy types on page.props
                     location: new URL(page.props.ziggy.location),
                 });
-            /* eslint-enable */
 
             return <App {...props} />;
         },
